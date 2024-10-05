@@ -17,13 +17,15 @@ public class Claim {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idClaim;
     private LocalDate date;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private CStatus status;
     private String amount;
+    private String image;
+    @Column(columnDefinition = "TEXT")
+    private String details;
 
-    @OneToOne
-    @JoinColumn(name = "idInsurance")
-    private Insurance insurance;
+    @ManyToOne
+    Insurance insurance;
 
-    @OneToOne(mappedBy = "claim", cascade = CascadeType.ALL)
-    private PredictiveModel predictiveModel;
+
 }

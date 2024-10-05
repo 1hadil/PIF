@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,7 +21,7 @@ public class PredictiveModel {
     private LocalDate creationDate;
     private String parameters;
 
-    @OneToOne
-    @JoinColumn(name = "idClaim")
-    private Claim claim;
+
+    @ManyToMany(mappedBy = "predictiveModels",cascade = CascadeType.ALL)
+    private Set<Insurance> insurances;
 }

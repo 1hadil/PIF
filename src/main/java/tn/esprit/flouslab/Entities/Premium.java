@@ -16,10 +16,10 @@ public class Premium {
     Long idPremium;
     private LocalDate date;
     private Double amount;
-    private String status;
+    private boolean status;
     private Double accumulatedInterest;
 
     @ManyToOne
-    @JoinColumn(name = "idInsurance")
-    private Insurance insurance;
+    Insurance insurance;
+
 }

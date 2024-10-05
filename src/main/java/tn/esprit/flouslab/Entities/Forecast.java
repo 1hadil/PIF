@@ -3,6 +3,8 @@ package tn.esprit.flouslab.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @Builder
@@ -14,11 +16,11 @@ public class Forecast {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idForecast;
     private String type;
-    private String premiumRange;
-    private Double estimatedCompensationAmount;
+    private String premiummargin;
+    private Double estimated_Compensation_Amount;
     private Double claimProbability;
+    private LocalDate date;
 
-    @OneToOne
-    @JoinColumn(name = "idInsurance")
-    private Insurance insurance;
+    @ManyToOne
+    Insurance insurance;
 }
