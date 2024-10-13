@@ -15,7 +15,9 @@ public class Orders {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
  private Long idOrder;
- private String type;
+
+ @Enumerated(EnumType.STRING)
+ private IType type;
  private LocalDate date;
  private String status;
 

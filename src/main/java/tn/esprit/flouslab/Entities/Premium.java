@@ -15,9 +15,9 @@ public class Premium {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long idPremium;
     private LocalDate date;
-    private Double amount;
+    private Float amount;
     private boolean status;
-    private Double accumulatedInterest;
+
 
     @ManyToOne
     Insurance insurance;

@@ -37,6 +37,8 @@ public class User implements UserDetails , Principal {
     private String password;
     private boolean accountLocked;
     private boolean enabled;
+    private Float salary;
+    private String job;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)

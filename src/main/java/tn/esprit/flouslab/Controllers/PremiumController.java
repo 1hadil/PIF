@@ -39,5 +39,30 @@ public class PremiumController {
     {
         return premiumservice.updatePremium(p);
     }
+    @GetMapping("/allpr")
+    public List<Premium> getallpremiumstns(@RequestParam("id") Long id){
+        return premiumservice.getALLpr(id);
+    }
+    @PostMapping("/payment/{idPremium}")
+    public Premium payment (@PathVariable Long idPremium ){
+        return premiumservice.payment(idPremium);
+    }
+    @GetMapping("/gettotalpremiums")
+    public Long getTotalPremiumCount()
+
+    {
+        return premiumservice.getTotalPremiumCount();
+    }
+    @GetMapping("/findallpremiumsofuser/{iduser}")
+    public List<Premium> findallpremiumsofuser(@PathVariable Long iduser)
+    {
+        return premiumservice.findallpremiumsofuser(iduser);}
+        @PutMapping("/assignpremiumtoinsurance/{idpremium}/{idinsurance}")
+        public Premium assignpremiumtoinsurance(@PathVariable Long idpremium,@PathVariable Long idinsurance)
+        {
+            return premiumservice.assignpremiumtoinsurance(idpremium,idinsurance);
+        }
+
+
 
 }

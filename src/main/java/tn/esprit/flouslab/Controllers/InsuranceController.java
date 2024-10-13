@@ -43,6 +43,31 @@ public class InsuranceController {
     public List<Insurance> getallinsurance(){
         return insuranceservice.getAll();
     }
+    @PutMapping("/addinsuranceandassigntouser/{iduser}")
+    public Insurance addinsuranceandassigntouser (@RequestBody Insurance insurance,@PathVariable Integer iduser)
+    {
+        return insuranceservice.addinsuranceandassigntouser(insurance,iduser);
+    }
+    @PutMapping("/assigninsurancetouser/{idinsurance}/{iduser}")
+    public Insurance assigninsurancetouser(@PathVariable Long idinsurance,@PathVariable Integer iduser)
+    {
+        return insuranceservice.assigninsurancetouser(idinsurance,iduser);
+    }
+    @GetMapping("/gettotalinsurance")
+    public Long gettotalinsurance()
+    {
+        return insuranceservice.gettotalinsurance();
+    }
+
+    @GetMapping("/allbyuser")
+    public List<Insurance> getbyuser(@RequestParam("iduser") Integer iduser){
+        return insuranceservice.getallbyuser(iduser);
+    }
+    @PostMapping("/saveorderinsurance/{iduser}/{idorder}")
+    public Insurance saveorderinsurance(@PathVariable Integer iduser,@PathVariable Long idorder ){
+        return insuranceservice.createInsurance(iduser,idorder);
+
+    }
 
 
 

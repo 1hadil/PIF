@@ -3,6 +3,7 @@ package tn.esprit.flouslab.Controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.flouslab.Entities.Insurance;
 import tn.esprit.flouslab.Entities.PredictiveModel;
 import tn.esprit.flouslab.Services.IPredicitiveModelService;
 
@@ -44,6 +45,11 @@ public class PredictiveModelController {
     public PredictiveModel updatepm(@RequestBody PredictiveModel pm)
     {
         return predmodservice.updatePredictiveModel(pm);
+    }
+    @PostMapping("/addpredmodelandassigntoinsurance/{idin}")
+    public Insurance addpredmodelandassigntoinsurance (@RequestBody PredictiveModel pm, @PathVariable Long idin)
+    {
+        return predmodservice.addpredictivemodelandassigntoinsurance(pm,idin);
     }
 
 

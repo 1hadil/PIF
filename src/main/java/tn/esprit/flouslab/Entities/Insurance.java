@@ -26,6 +26,7 @@ public class Insurance {
  private float clientcoverageamount;
  private float clientpremium;
  private Integer duration;
+ private Long idorder;
  @Column(columnDefinition = "TEXT")
  private String policy;
  @Enumerated(EnumType.STRING)

@@ -10,6 +10,7 @@ public interface IForecastService {
     void deleteForecast (Long id);
     List<Forecast> getALL();
     Forecast updateForecast (Forecast f);
+    Forecast addforecastandassigntoinsurance (Forecast f,Long idiinsurance);
 }
 
 

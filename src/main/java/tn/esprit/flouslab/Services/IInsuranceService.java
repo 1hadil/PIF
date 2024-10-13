@@ -11,6 +11,12 @@ public interface IInsuranceService {
     List<Insurance> getAll();
 
     Insurance updateInsurance (Insurance i);
+    Insurance addinsuranceandassigntouser (Insurance insurance,Integer iduser);
+    Insurance assigninsurancetouser(Long idinsurance,Integer iduser);
+    Long gettotalinsurance();
+    public List<Insurance> getallbyuser(Integer iduser);
+
+    public Insurance createInsurance(Integer iduser,Long idorder );
 
 
 

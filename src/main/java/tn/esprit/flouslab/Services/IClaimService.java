@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Services;
 
+import tn.esprit.flouslab.Entities.CStatus;
 import tn.esprit.flouslab.Entities.Claim;
 
 import java.util.List;
@@ -10,5 +11,8 @@ public interface IClaimService {
     void deleteClaim (Long id);
     List<Claim> getALL();
     Claim updateclaim (Claim c);
+    Claim addclaimandassigntoinsurance(Claim c,Long idinsurance);
+    Long getTotalClaimCount();
+    Long  countclaimsbystatus (CStatus status);
 
 }

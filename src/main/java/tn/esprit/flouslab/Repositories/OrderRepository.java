@@ -3,11 +3,9 @@ package tn.esprit.flouslab.Repositories;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import tn.esprit.flouslab.Entities.Insurance;
-import tn.esprit.flouslab.Entities.User;
-
-import java.util.List;
+import tn.esprit.flouslab.Entities.Orders;
 
 @Repository
-public interface InsuranceRepository extends CrudRepository<Insurance,Long> {
-    List<Insurance> findByUser(User user);
+public interface OrderRepository extends CrudRepository<Orders,Long> {
+
 }

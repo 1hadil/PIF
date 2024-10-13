@@ -2,7 +2,9 @@ package tn.esprit.flouslab.Services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.flouslab.Entities.Insurance;
 import tn.esprit.flouslab.Entities.Premium;
+import tn.esprit.flouslab.Repositories.InsuranceRepository;
 import tn.esprit.flouslab.Repositories.PremiumRepository;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.List;
 public class PremiumServiceImpl implements IPremiumService {
 
     private PremiumRepository premrep;
+    private InsuranceRepository insurancerep;
     @Override
     public Premium addPremium(Premium p) {
         return premrep.save(p);
@@ -38,5 +41,40 @@ public class PremiumServiceImpl implements IPremiumService {
     public Premium updatePremium(Premium p) {
         return premrep.save(p);
     }
+
+    @Override
+    public List<Premium> getALLpr(Long id) {
+        Insurance insurance = insurancerep.findById(id).orElse(null);
+        return  premrep.findPremiumByInsurance(insurance);
+    }
+
+    @Override
+    public Premium payment(Long idPremium) {
+        Premium premium=premrep.findById(idPremium).get();
+        premium.setAmount(0f);
+        premium.setStatus(false);
+        return premrep.save(premium);
+    }
+
+    @Override
+    public Long getTotalPremiumCount() {
+        return premrep.count();
+    }
+
+    @Override
+    public List<Premium> findallpremiumsofuser(Long iduser) {
+        return premrep.findByInsuranceUserId(iduser);
+    }
+
+    @Override
+    public Premium assignpremiumtoinsurance(Long idpremium, Long idinsurance) {
+        Premium p = premrep.findById(idpremium).orElse(null);
+        Insurance i=insurancerep.findById(idinsurance).orElse(null);
+        p.setInsurance(i);
+        return premrep.save(p);
+
+    }
+
+
 }
 

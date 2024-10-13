@@ -6,4 +6,5 @@ public enum IType {
     stock_insurance
 
 
+
 }

@@ -10,5 +10,13 @@ public interface IPremiumService {
     void deletePremium (Long id);
     List<Premium> getALL();
     Premium updatePremium (Premium p);
+    public List<Premium> getALLpr(Long id);
+    public Premium payment(Long idPremium);
+    Long getTotalPremiumCount();
+    List<Premium> findallpremiumsofuser (Long iduser);
+    Premium assignpremiumtoinsurance (Long idpremium,Long idinsurance );
+
+
+
 
 }

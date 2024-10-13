@@ -3,6 +3,7 @@ package tn.esprit.flouslab.Controllers;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.flouslab.Entities.CStatus;
 import tn.esprit.flouslab.Entities.Claim;
 import tn.esprit.flouslab.Services.IClaimService;
 
@@ -44,7 +45,21 @@ public class ClaimController {
     {
         return claimservice.updateclaim(c);
     }
-
+    @PostMapping ("/addclaimandassigntoinsurance/{idin}")
+    public Claim addclaimandassigntoinsurance (@RequestBody Claim c, @PathVariable Long idin)
+    {
+        return claimservice.addclaimandassigntoinsurance(c,idin);
+    }
+    @GetMapping("/gettotalclaim")
+    public Long gettotalclaims ()
+    {
+        return claimservice.getTotalClaimCount();
+    }
+    @GetMapping("/countclaimsbystatus/{cstatus}")
+    public Long countclaimsbystatus(@PathVariable CStatus cstatus)
+    {
+        return claimservice.countclaimsbystatus(cstatus);
+    }
 
 
 }

@@ -2,8 +2,11 @@ package tn.esprit.flouslab.Services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.flouslab.Entities.CStatus;
 import tn.esprit.flouslab.Entities.Claim;
+import tn.esprit.flouslab.Entities.Insurance;
 import tn.esprit.flouslab.Repositories.ClaimRepository;
+import tn.esprit.flouslab.Repositories.InsuranceRepository;
 
 import java.util.List;
 
@@ -13,6 +16,9 @@ import java.util.List;
 
     public class ClaimServiceImpl implements IClaimService {
         private ClaimRepository claimrep;
+
+        private InsuranceRepository inrep;
+
 
         @Override
         public Claim addClaim(Claim c) {
@@ -44,6 +50,25 @@ import java.util.List;
             claim.setAmount(c.getAmount());
 
             return claimrep.save(claim);
+        }
+
+        @Override
+        public Claim addclaimandassigntoinsurance(Claim c, Long idinsurance) {
+            c.setStatus(CStatus.Pending);
+            claimrep.save(c);
+            Insurance insurance = inrep.findById(idinsurance).orElse(null);
+            c.setInsurance(insurance);
+            return claimrep.save(c);
+        }
+
+        @Override
+        public Long getTotalClaimCount() {
+            return claimrep.count();
+        }
+
+        @Override
+        public Long countclaimsbystatus(CStatus status) {
+            return claimrep.countByStatus(status);
         }
     }
 

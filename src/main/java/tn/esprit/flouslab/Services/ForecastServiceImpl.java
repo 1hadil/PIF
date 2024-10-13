@@ -3,8 +3,11 @@ package tn.esprit.flouslab.Services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import tn.esprit.flouslab.Entities.Forecast;
+import tn.esprit.flouslab.Entities.Insurance;
 import tn.esprit.flouslab.Repositories.ForecastRepository;
+import tn.esprit.flouslab.Repositories.InsuranceRepository;
 
 import java.util.List;
 
@@ -12,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ForecastServiceImpl implements IForecastService {
     private ForecastRepository forecastrep;
+    private InsuranceRepository inrep;
 
 
     @Override
@@ -44,4 +48,14 @@ public class ForecastServiceImpl implements IForecastService {
         forecast.setClaimProbability(f.getClaimProbability());
         return forecastrep.save(forecast);
     }
+
+    @Override
+    public Forecast addforecastandassigntoinsurance(Forecast f, Long idiinsurance) {
+           forecastrep.save(f);
+        Insurance insurance= inrep.findById(idiinsurance).orElse(null);
+        f.setInsurance(insurance);
+        return forecastrep.save(f);
+
+    }
+
 }

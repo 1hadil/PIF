@@ -46,6 +46,13 @@ public class ForecastController {
         return forecastservice.updateForecast(f);
     }
 
+    @PostMapping("/addforecastandassigntoinsurance/{idin}")
+    public Forecast addforecastandassigntoinsurance (@RequestBody Forecast f,@PathVariable Long idin)
+    {
+        return forecastservice.addforecastandassigntoinsurance(f,idin);
+    }
+
+
 
 
 

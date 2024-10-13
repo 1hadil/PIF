@@ -2,10 +2,15 @@ package tn.esprit.flouslab.Services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import tn.esprit.flouslab.Entities.Forecast;
+import tn.esprit.flouslab.Entities.Insurance;
 import tn.esprit.flouslab.Entities.PredictiveModel;
+import tn.esprit.flouslab.Repositories.InsuranceRepository;
 import tn.esprit.flouslab.Repositories.PredictiveModelRepository;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -14,6 +19,7 @@ public class PredictiveModelImpl implements IPredicitiveModelService {
 
 
     private PredictiveModelRepository premodrep;
+    private InsuranceRepository inrep;
     @Override
     public PredictiveModel addPredictiveModel(PredictiveModel pm) {
         return premodrep.save(pm);
@@ -43,5 +49,16 @@ public class PredictiveModelImpl implements IPredicitiveModelService {
         predictiveModel.setName(pm.getName());
         predictiveModel.setParameters(pm.getParameters());
         return  premodrep.save(predictiveModel);
+    }
+
+    @Override
+    public Insurance addpredictivemodelandassigntoinsurance(PredictiveModel pm, Long idin) {
+        premodrep.save(pm);
+            Insurance insurance = inrep.findById(idin).orElse(null);
+        Set<PredictiveModel> predictivemodels = new HashSet<>();
+        predictivemodels.add(pm);
+        insurance.setPredictiveModels(predictivemodels);
+        return insurance;
+
     }
 }
