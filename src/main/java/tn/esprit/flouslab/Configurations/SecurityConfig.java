@@ -26,7 +26,7 @@ public class SecurityConfig {
         http
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> {
+                .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())/*{
                     auth.requestMatchers(
                                     "/auth/**",  // Enlève l'espace entre /auth/ et **
                                     "/v2/api-docs",
@@ -42,12 +42,12 @@ public class SecurityConfig {
                             ).permitAll()
                             .anyRequest()
                             .authenticated();
-                })
+                })*/
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Pas de session, gestion sans état
                 )
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                .authenticationProvider(authenticationProvider);
+                //.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 }
