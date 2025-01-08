@@ -1,13 +1,13 @@
-package tn.esprit.flouslab;
+package com.rest.transactions;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlousLabApplicationTests {
+class TransactionsApplicationTests {
 
-    @Test
-    void contextLoads() {
-    }
+	@Test
+	void contextLoads() {
+	}
 
 }
