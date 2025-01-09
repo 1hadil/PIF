@@ -23,7 +23,7 @@ import java.util.List;
 public class Role {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id ;
     @Column(unique = true)
     private String name ;

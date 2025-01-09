@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import tn.esprit.flouslab.Entities.*;
 import tn.esprit.flouslab.Repositories.InsuranceRepository;
 import tn.esprit.flouslab.Repositories.OrderRepository;
-import tn.esprit.flouslab.Repositories.PremiumRepository;
 import tn.esprit.flouslab.Repositories.UserRepository;
 
 import java.time.LocalDate;
@@ -25,9 +24,18 @@ public class InsuranceServiceImpl implements IInsuranceService {
 
     @Autowired
     private UserRepository userrep;
+
+
+
     @Override
-    public Insurance addInsurance(Insurance i) {
-        return inrep.save(i);
+    public Long addInsurance(Insurance i, Integer id) {
+        User user = userrep.findById(id).orElse(null);
+        if (user != null) {
+            i.setUser(user);
+            Insurance savedInsurance = inrep.save(i);
+            return savedInsurance.getIdInsurance();
+        }
+        return null;
     }
 
     @Override
@@ -42,13 +50,13 @@ public class InsuranceServiceImpl implements IInsuranceService {
     }
 
     @Override
-    public List<Insurance> getAll() {
-        return (List<Insurance>) inrep.findAll();
+    public Iterable<Insurance> getAll() {
+        return  inrep.findAll();
     }
 
     @Override
-    public Insurance updateInsurance(Insurance i) {
-        Insurance insurance= inrep.findById(i.getIdInsurance()).orElse(null);
+    public Insurance updateInsurance(Insurance i,Long id) {
+        Insurance insurance= inrep.findById(id).orElse(null);
         insurance.setState(i.getState());
         insurance.setStartDate(i.getStartDate());
         insurance.setEndDate(i.getEndDate());
@@ -97,6 +105,7 @@ public class InsuranceServiceImpl implements IInsuranceService {
         insurance.setClientpremium(0);
         insurance.setState(InStatus.Pending);
         insurance.setType(order.getType());
+        insurance.setIdorder(idorder);
 
 
 
@@ -106,16 +115,18 @@ public class InsuranceServiceImpl implements IInsuranceService {
         return inrep.save(insurance);
     }
 
-    /*@Override
+
+   /* @Override
     public Insurance updatedInsurance(Long insuranceId) {
         Insurance insurance= inrep.findById(insuranceId).get();
+        Orders order = orderrep.findById(insurance.getIdorder()).get();
         insurance.setState(InStatus.Accepted);
         Iterable<Insurance> insurances = inrep.findAll();
         int calcul=0;
         float total=0;
         for (Insurance insurance1 : insurances
         ){
-            if (insurance1.getInsuranceP().getId().equals(insurance.getInsuranceP().getId()) && insurance.getInsuranceP().getType().equals(insurance1.getInsuranceP().getType())){
+            if ( insurance.getIdorder(). equals(insurance1.getInsuranceP().getType())){
                 calcul++;
                 total+=insurance1.getInsuranceP().getCoverageAmount();
             }
@@ -224,7 +235,7 @@ public class InsuranceServiceImpl implements IInsuranceService {
         }
         LocalDate currentDate = LocalDate.now();
         return currentDate.getYear() - birthDate.getYear();
-    }
-*/
+    }*/
+
 
 }

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import tn.esprit.flouslab.Entities.CStatus;
 import tn.esprit.flouslab.Entities.Claim;
 import tn.esprit.flouslab.Entities.Insurance;
+import tn.esprit.flouslab.Entities.User;
 import tn.esprit.flouslab.Repositories.ClaimRepository;
 import tn.esprit.flouslab.Repositories.InsuranceRepository;
+import tn.esprit.flouslab.Repositories.UserRepository;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ import java.util.List;
 
         private InsuranceRepository inrep;
 
-
+        private UserRepository userRepository ;
         @Override
         public Claim addClaim(Claim c) {
             return claimrep.save(c);
@@ -40,10 +42,15 @@ import java.util.List;
         public List<Claim> getALL() {
             return (List<Claim>) claimrep.findAll();
         }
+        @Override
+        public List<Claim> getALLbyuser(int id) {
+            User user = userRepository.findById(id).orElse(null);
+            return (List<Claim>) claimrep.findAllByUser(user);
+        }
 
         @Override
-        public Claim updateclaim(Claim c) {
-            Claim claim = claimrep.findById(c.getIdClaim()).orElse(null);
+        public Claim updateclaim(Claim c,Long id) {
+            Claim claim = claimrep.findById(id).orElse(null);
             claim.setDate(c.getDate());
             claim.setDetails(c.getDetails());
             claim.setStatus(c.getStatus());
@@ -53,11 +60,14 @@ import java.util.List;
         }
 
         @Override
-        public Claim addclaimandassigntoinsurance(Claim c, Long idinsurance) {
-            c.setStatus(CStatus.Pending);
-            claimrep.save(c);
+        public Claim addclaimandassigntoinsurance(Claim c, Long idinsurance,Integer id) {
             Insurance insurance = inrep.findById(idinsurance).orElse(null);
             c.setInsurance(insurance);
+            User user= userRepository.findById(id).orElse(null);
+            c.setUser(user);
+            c.setStatus(CStatus.Pending);
+
+
             return claimrep.save(c);
         }
 

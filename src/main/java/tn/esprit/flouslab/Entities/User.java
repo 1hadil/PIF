@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,7 +32,7 @@ public class User implements UserDetails , Principal {
     private int id;
     private String firstname;
     private String lastname;
-    private LocalDate dateofbirth;
+    private int age;
     @Column(unique = true)
     private  String email;
     private String password;
@@ -40,9 +41,11 @@ public class User implements UserDetails , Principal {
     private Float salary;
     private String job;
 
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
 
     private List<Role> roles ;
@@ -50,19 +53,36 @@ public class User implements UserDetails , Principal {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
+@JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Insurance> insurances;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Forecast> forecasts;
+    @JsonIgnore
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Portfolio portfolio;
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "course_user",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Claim> claims;
+
+
 
     @Override
     public String getName() {
         return email;
     }
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

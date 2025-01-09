@@ -18,14 +18,14 @@ public class InsuranceController {
     @Autowired
     private IInsuranceService insuranceservice;
 
-    @PostMapping("/save")
-    public Insurance addInsurance (@RequestBody Insurance insurance){
-        return insuranceservice.addInsurance(insurance);
+    @PostMapping("/save/{id}")
+    public Long addInsurance (@RequestBody Insurance insurance,@PathVariable Integer id){
+        return insuranceservice.addInsurance(insurance,id);
     }
 
     @PutMapping ("/updatedinc/{Idinsurance}")
-    public Insurance updatedinsurance(@PathVariable Insurance insurance ){
-        return insuranceservice.updateInsurance(insurance);
+    public Insurance updatedinsurance(@RequestBody Insurance insurance,@PathVariable Long Idinsurance ){
+        return insuranceservice.updateInsurance(insurance,Idinsurance);
 
     }
     @GetMapping("/findbyid/{idinsurance}")
@@ -40,7 +40,7 @@ public class InsuranceController {
     }
 
     @GetMapping("/all")
-    public List<Insurance> getallinsurance(){
+    public Iterable<Insurance> getallinsurance(){
         return insuranceservice.getAll();
     }
     @PutMapping("/addinsuranceandassigntouser/{iduser}")

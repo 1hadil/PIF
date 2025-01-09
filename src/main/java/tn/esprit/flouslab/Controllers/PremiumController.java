@@ -15,9 +15,9 @@ import java.util.List;
 public class PremiumController {
     private IPremiumService premiumservice;
 
-    @PostMapping("/save")
-    public Premium addPremium(@RequestBody Premium premium ){
-        return premiumservice.addPremium(premium);
+    @PostMapping("/save/{id}")
+    public Premium addPremium(@RequestBody Premium premium,@PathVariable  Long id ){
+        return premiumservice.addPremium(premium,id);
 
     }
     @GetMapping("/findbyid/{idpremium}")

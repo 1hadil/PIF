@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -20,7 +21,8 @@ public class Forecast {
     private Double estimated_Compensation_Amount;
     private Double claimProbability;
     private LocalDate date;
-
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<PremiumEntry> premiums;
     @ManyToOne
-    Insurance insurance;
+    User user;
 }

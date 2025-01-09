@@ -5,7 +5,7 @@ import tn.esprit.flouslab.Entities.Premium;
 import java.util.List;
 
 public interface IPremiumService {
-    Premium addPremium (Premium p);
+    Premium addPremium (Premium p,Long id);
     Premium getPremiumById (Long id);
     void deletePremium (Long id);
     List<Premium> getALL();

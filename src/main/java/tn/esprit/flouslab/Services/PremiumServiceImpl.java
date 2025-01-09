@@ -17,7 +17,9 @@ public class PremiumServiceImpl implements IPremiumService {
     private PremiumRepository premrep;
     private InsuranceRepository insurancerep;
     @Override
-    public Premium addPremium(Premium p) {
+    public Premium addPremium(Premium p,Long id) {
+        Insurance insurance = insurancerep.findById(id).orElse(null);
+        p.setInsurance(insurance);
         return premrep.save(p);
     }
 

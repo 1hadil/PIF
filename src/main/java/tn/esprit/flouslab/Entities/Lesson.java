@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,9 +18,10 @@ public class Lesson {
     private Long idLesson;
     private String name;
     private String description;
+    private String time;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String level;
+    private String duree;
 
     @ManyToOne
     @JoinColumn(name = "idCourse")

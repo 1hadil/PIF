@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,13 +22,13 @@ public class Course {
     private LocalDate startDate;
     private LocalDate endDate;
     private String level;
-    @ManyToOne
-    @JoinColumn(name = "id")
-    private User user;
-
-    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "courses",cascade = CascadeType.ALL)
+    private List<User> user;
+    @JsonIgnore
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Lesson> lessons;
-
-    @OneToMany(mappedBy = "course")
+    @JsonIgnore
+    @OneToMany(mappedBy = "course",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Contest> contests;
 }

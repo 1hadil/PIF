@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,7 @@ public class Contest {
     @ManyToOne
     @JoinColumn(name = "idCourse")
     private Course course;
-
-    @OneToMany(mappedBy = "contest")
+    @JsonIgnore
+    @OneToMany(mappedBy = "contest",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Game> games;
 }

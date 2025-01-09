@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,18 +32,17 @@ public class Insurance {
  private String policy;
  @Enumerated(EnumType.STRING)
  private  InStatus state;
- @ManyToOne
- @JoinColumn(name = "id")
- private User user;
 
+ @ManyToOne
+ @JoinColumn(name = "user_id")
+ private User user;
+@JsonIgnore
  @OneToMany(cascade = CascadeType.ALL,mappedBy = "insurance")
  private Set<Claim> claims;
 
  @OneToMany(cascade = CascadeType.ALL,mappedBy = "insurance")
  private Set<Premium> premiums;
 
- @OneToMany(cascade = CascadeType.ALL,mappedBy = "insurance")
- private Set<Forecast> Forecasts ;
 
 
  @ManyToMany(cascade = CascadeType.ALL)

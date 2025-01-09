@@ -10,8 +10,10 @@ public interface IClaimService {
     Claim getClaimbyid (Long id);
     void deleteClaim (Long id);
     List<Claim> getALL();
-    Claim updateclaim (Claim c);
-    Claim addclaimandassigntoinsurance(Claim c,Long idinsurance);
+    public Claim updateclaim(Claim c,Long id) ;
+    public List<Claim> getALLbyuser(int id);
+
+    Claim addclaimandassigntoinsurance(Claim c, Long idinsurance,Integer id);
     Long getTotalClaimCount();
     Long  countclaimsbystatus (CStatus status);
 

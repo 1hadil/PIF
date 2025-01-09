@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AthenticationService {
 private  final RoleRepository roleRepository ;
-private final PasswordEncoder passwordEncoder ;
+
 private final UserRepository userRepository ;
 
     public void register(RegistrationRequest request) {
@@ -25,7 +25,7 @@ private final UserRepository userRepository ;
                 .firstname(request.getFirstname())
                 .lastname(request.getLastname())
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
+                .password(request.getPassword())
                 .accountLocked(false)
                 .enabled(false)
                 .roles(List.of(userRole))
@@ -44,7 +44,7 @@ private final UserRepository userRepository ;
         // generate a token
         String  generatedToken = generateActivationCode(6);
         return null ;
-        
+
     }
 
     private String generateActivationCode(int length) {

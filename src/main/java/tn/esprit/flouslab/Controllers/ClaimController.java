@@ -39,16 +39,19 @@ public class ClaimController {
     public List<Claim> getallclaims(){
         return claimservice.getALL();
     }
-
-    @PutMapping("/updateclaim")
-    public Claim updateclaim(@RequestBody Claim c)
-    {
-        return claimservice.updateclaim(c);
+    @GetMapping("/all/{id}")
+    public List<Claim> getallclaims(@PathVariable int id){
+        return claimservice.getALLbyuser(id);
     }
-    @PostMapping ("/addclaimandassigntoinsurance/{idin}")
-    public Claim addclaimandassigntoinsurance (@RequestBody Claim c, @PathVariable Long idin)
+    @PutMapping("/updateclaim/{id}")
+    public Claim updateclaim(@RequestBody Claim c,@PathVariable  Long id)
     {
-        return claimservice.addclaimandassigntoinsurance(c,idin);
+        return claimservice.updateclaim(c,id);
+    }
+    @PostMapping ("/addclaimandassigntoinsurance/{idin}/{id}")
+    public Claim addclaimandassigntoinsurance (@RequestBody Claim c, @PathVariable Long idin,@PathVariable Integer id)
+    {
+        return claimservice.addclaimandassigntoinsurance(c,idin,id);
     }
     @GetMapping("/gettotalclaim")
     public Long gettotalclaims ()

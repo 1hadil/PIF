@@ -1,5 +1,6 @@
 package tn.esprit.flouslab.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,7 +24,8 @@ public class Claim {
     private String image;
     @Column(columnDefinition = "TEXT")
     private String details;
-
+    @ManyToOne
+    User user;
     @ManyToOne
     Insurance insurance;
 
